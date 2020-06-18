@@ -18,7 +18,7 @@ class Tabela
         if ($ordem < 0) {
             return false;
         }
-        
+
         R::begin();
         try {
             $obj = R::dispense('tabela');
@@ -71,6 +71,10 @@ class Tabela
         return $list[array_rand($list)];
     }
 
+    // se $obj não possuir ordem, é novo registro
+    // se $ordem_nova for < 0, vai apagar registro
+    // se $ordem_nova for == 0, vai para o final
+    // se $ordem_nova for > 0, vai para a posição indicada
     protected function atualizarOrdem($obj, $ordem_nova = 0)
     {
         $max = R::getCell('SELECT MAX(ordem) FROM tabela');
